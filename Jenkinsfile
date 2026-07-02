@@ -2,14 +2,11 @@ pipeline {
 
     agent any
 
-    stages {
+    tools {
+        nodejs 'NodeJS'
+    }
 
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main',
-                url: 'https://github.com/FathimaRania/EcommerceAutomation.git'
-            }
-        }
+    stages {
 
         stage('Install Dependencies') {
             steps {
@@ -37,15 +34,9 @@ pipeline {
     }
 
     post {
-
         always {
-
             archiveArtifacts artifacts: 'playwright-report/**', fingerprint: true
-
             archiveArtifacts artifacts: 'allure-report/**', fingerprint: true
-
         }
-
     }
-
 }
